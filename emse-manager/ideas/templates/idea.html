@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if request.user.is_authenticated %}
+ {% endif %}
+<div class="page-header">
+	<h1>{{ idea.name }}</h1>
+</div>
+<div class="well">
+	<p><h3>{{ idea.description }}</h3></p>
+ </div>
+<div class='col-md-2'>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Price</h3>
+    </div>
+    <div class="panel-body">
+      {{ idea.description }} &euro;
+    </div>
+</div>
+</div>
+<div class='col-md-4'>
+ <form class="add_to_cart" id="add_to_cart_form" method="post" action="{% url 'add_to_cart' idea.id %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Quantity</h3>
+    </div>
+    <div class="panel-body">
+       <input id= "quantity" name = "quantity" type="number" min="1" max="10" required>
+       <button type="submit" class='btn btn-success'>Add to cart</button>
+    </div>
+  </div>
+</form>
+</div>
+
+
+{% endblock %}

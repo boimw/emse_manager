@@ -14,9 +14,3 @@ class profile(models.Model):
 
 	def __unicode__(self):
 		return self.name
-
-def profileCallback(sender, request, user, **kwargs):
-	userProfile, is_created = profile.objects.get_or_create(user=user)
-	if is_created:
-		userProfile.name = user.username
-		userProfile.save()

@@ -26,7 +26,8 @@ urlpatterns = [
     url(r'^about/$', profiles_views.about, name='about'),
     url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^edit/(?P<user_id>[0-9]+)/$', profiles_views.edit, name='edit'),
-	url(r'^ideas/$', ideas_views.idea, name='idea'),
+	url(r'^ideas/$', ideas_views.ideas, name='idea'),
+    url(r'^idea/(?P<idea_id>[0-9]+)/$', ideas_views.idea, name='idea'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ]
