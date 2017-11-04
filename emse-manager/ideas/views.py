@@ -9,6 +9,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Idea, User, Rating
 # Create your views here.
 
+def ideas(request):
+	ideas = Idea.objects.all
+	context = {'ideas': ideas}
+	template = 'ideas.html'
+	return render(request, template, context)
+	
 def idea(request, idea_id):
     idea = Idea.objects.get(id=idea_id)
     context = {'idea': idea}

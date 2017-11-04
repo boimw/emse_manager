@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class='col-md-4 col-md-offset-2'>
+<h1>Ideas</h1>
+</div>
+{% if request.user.is_authenticated %}
+
+ {% endif %}
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Idea</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in ideas.all %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.description }}</td>
+            <td><a class="btn btn-success" href="{% url 'idea' item.id %}">View</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
