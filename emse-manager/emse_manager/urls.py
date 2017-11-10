@@ -20,14 +20,19 @@ from django.contrib import admin
 
 from ideas import views as ideas_views
 from profiles import views as profiles_views
+from checkout import views as checkout_views
 
 urlpatterns = [
 	url(r'^$', profiles_views.home, name='home'), 
     url(r'^about/$', profiles_views.about, name='about'),
     url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^edit/(?P<user_id>[0-9]+)/$', profiles_views.edit, name='edit'),
+    url(r'^checkout/$', checkout_views.checkout, name='checkout'), 
 	url(r'^ideas/$', ideas_views.ideas, name='idea'),
+    url(r'^cart/$', ideas_views.cart, name='cart'), 
     url(r'^idea/(?P<idea_id>[0-9]+)/$', ideas_views.idea, name='idea'),
+    url(r'^add_to_cart/(?P<idea_id>[0-9]+)/$', ideas_views.add_to_cart, name='add_to_cart'),
+    url(r'^remove_from_cart/(?P<idea_id>[0-9]+)/$', ideas_views.remove_from_cart, name='remove_from_cart'),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ]
