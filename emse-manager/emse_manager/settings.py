@@ -34,6 +34,9 @@ INSTALLED_APPS = [
     'ideas',
     'profiles',
     'crispy_forms',
+    'carts',
+    'checkout',
+    'stripe',
     'django.contrib.auth',
     'django.contrib.sites',
     'allauth',
@@ -171,3 +174,6 @@ ACCOUNT_PASSWORD_MIN_LENGTH = 6
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+#Stripe stuff
+STRIPE_PUBLISHABLE_KEY = 'pk_test_bDO2Aawbv46C8wppUdkITYux'
+STRIPE_SECRET_KEY = 'sk_test_hQWUeG4pLLTGY84hUuqr0Vgw'

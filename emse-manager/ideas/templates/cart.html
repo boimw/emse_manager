@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class='col-md-4 col-md-offset-2'>
+<h1>My card</h1>
+ {% if error_message %}<p id="error">{{ error_message }}</p> {% endif %}
+ {% if info_message %}
+     <div class="alert alert-info" role="alert">
+        {{ info_message }}
+    </div> 
+{% endif %}
+ </div>
+
+ <div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total price</th>
+            <th>Remove</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.product.price }}</td>
+            <td>{{ item.total_price }}</td>
+            <td>
+              <a class="btn btn-danger" href="{% url 'remove_from_cart' item.product.id %}">Remove</a>
+            </td>  
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class='col-md-4'>
+<div class="alert alert-success" role="alert">
+        <strong> Total price:</strong> {{ cart.summary }} 
+      </div>
+      </div>
+      Go to: 
+ <a class="btn btn-warning" href="{% url 'checkout'%}">Checkout</a>
+
+{% endblock %}
