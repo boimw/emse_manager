@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .models import Idea, User, Rating
+from .models import Idea, User, Rating, Category
 from carts.cart import Cart 
 # Create your views here.
 
@@ -17,10 +17,22 @@ def ideas(request):
 	return render(request, template, context)
 	
 def idea(request, idea_id):
-    idea = Idea.objects.get(id=idea_id)
-    context = {'idea': idea}
-    template = 'idea.html'
-    return render(request,template,context)
+	idea = Idea.objects.get(id=idea_id)
+	context = {'idea': idea}
+	template = 'idea.html'
+	return render(request,template,context)
+
+def categories(request):
+	ideas = Category.objects.all
+	context = {'categories': categories}
+	template = 'categories.html'
+	return render(request, template, context)
+
+def category(request, category_id):
+	ideas = Category.objects.get(id=category_id)
+	context = {'category': category}
+	template = 'categories.html'
+	return render(request, template, context)
 
 @login_required(login_url='/accounts/login/')
 def add_to_cart(request, ideat_id):
