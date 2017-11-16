@@ -3,11 +3,11 @@
 {% block content %}
 
 <div class='col-md-4 col-md-offset-2'>
-	<h1>Create new Idea</h1>
+	<h1>Edit Idea</h1>
 </div>
 {% if request.user.is_authenticated %}
 <div class="container">
-	<form class="create" method="POST" action="{% url 'create_idea' %}">
+	<form class="edit" method="POST" action="{% url 'update_idea' idea.id %}">
 		{% csrf_token %}
 		{{ form|crispy }}
 		<div class=" col-md-9 col-lg-9 "> 
@@ -16,19 +16,19 @@
 					<tr>
 						<td>Idea name:</td>
 						<td>
-							<input id="idea_name" type="text" class="form-control" name="idea_name" >
+							<input id="idea_name" type="text" class="form-control" name="idea_name" value= "{{ idea.name }}" >
 						</td>
 					</tr>
 					<tr>
 						<td>Idea description:</td>
 						<td>
-							<textarea  id="idea_description" rows="10" class="form-control" name="idea_description" ></textarea>
+							<textarea  id="idea_description" rows="10" class="form-control"  name="idea_description" >{{ idea.description }}</textarea>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div class="col-md-4 text-center"> 
-				<button class="btn btn-primary" type="submit">Create</button>
+				<button class="btn btn-primary" type="submit">Save changes</button>
 			</div>
 		</div>
 
