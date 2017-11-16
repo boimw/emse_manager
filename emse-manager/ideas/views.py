@@ -40,8 +40,30 @@ def create_idea(request):
                 })
 
 	return render(request)
+
 @login_required(login_url='/accounts/login/')
-def add_to_cart(request, ideat_id):
+def edit(request,idea_id):
+	idea=Idea.objects.get(id=idea_id)
+	context = {'idea': idea}
+	template = 'edit.html'
+	return render(request, template, context)
+
+@login_required(login_url='/accounts/login/')
+def update(request,idea_id):
+	idea=Idea.objects.get(id=idea_id)
+	idea_name = request.POST.get('idea_name')
+	idea_description = request.POST.get('idea_description')
+	idea.name = idea_name
+	idea.description = idea_description
+	idea.save()
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': idea
+                })
+
+
+
+@login_required(login_url='/accounts/login/')
+def add_to_cart(request, idea_id):
 	idea = Idea.objects.get(id=idea_id)
 	quantity = request.POST.get('quantity')
 	cart = Cart(request)
