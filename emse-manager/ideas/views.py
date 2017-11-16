@@ -35,10 +35,12 @@ def category(request, category_id):
 	template = 'categories.html'
 	return render(request, template, context)
 
+@login_required(login_url='/accounts/login/')
 def create_category_view(request):
 	template = 'createCategory.html'
 	return render(request, template)
 
+@login_required(login_url='/accounts/login/')
 def create_category(request):
 	category_name = request.POST.get('category_name')
 	category_description = request.POST.get('category_description')
