@@ -23,6 +23,24 @@ def idea(request, idea_id):
     return render(request,template,context)
 
 @login_required(login_url='/accounts/login/')
+def create(request):
+	template = 'create.html'
+	return render(request, template)
+
+@login_required(login_url='/accounts/login/')
+def create_idea(request):
+	user = request.user
+	idea_name = request.POST.get('idea_name')
+	idea_description = request.POST.get('idea_description')
+	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user)
+	idea.save()
+	ideas = Idea.objects.all
+	return render(request, 'ideas.html', context={
+                'info_message': "Successfully!", 'user': user, 'ideas': ideas
+                })
+
+	return render(request)
+@login_required(login_url='/accounts/login/')
 def add_to_cart(request, ideat_id):
 	idea = Idea.objects.get(id=idea_id)
 	quantity = request.POST.get('quantity')
