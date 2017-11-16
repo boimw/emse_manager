@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^checkout/$', checkout_views.checkout, name='checkout'), 
 	url(r'^ideas/$', ideas_views.ideas, name='idea'),
     url(r'^categories/$', ideas_views.categories, name='category'),
+    url(r'^ideas/search/$', ideas_views.search, name='idea_search'),
     url(r'^ideas/new/$', ideas_views.create, name='create'),
     url(r'^ideas/create_idea/$', ideas_views.create_idea, name='create_idea'),
     url(r'^edit_idea/(?P<idea_id>[0-9]+)/edit/$', ideas_views.edit, name='edit_idea'),

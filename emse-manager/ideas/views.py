@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth import authenticate
+from django.db.models import Q
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -49,6 +50,13 @@ def create_category(request):
 	return render(request, 'categories.html', context={
                 'info_message': "Successfully!", 'categories': categories
                 })
+
+def search(request):
+	search = request.POST.get('searchbox')
+	ideas = Idea.objects.filter(Q(name__contains=search) | Q(description__contains=search))
+	context = {'ideas': ideas}
+	template = 'ideas.html'
+	return render(request, template, context)
 
 @login_required(login_url='/accounts/login/')
 def create(request):
