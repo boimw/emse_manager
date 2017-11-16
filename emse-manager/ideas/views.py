@@ -23,16 +23,32 @@ def idea(request, idea_id):
 	return render(request,template,context)
 
 def categories(request):
-	ideas = Category.objects.all
+	categories = Category.objects.all
 	context = {'categories': categories}
 	template = 'categories.html'
 	return render(request, template, context)
 
 def category(request, category_id):
-	ideas = Category.objects.get(id=category_id)
+	category = Category.objects.get(id=category_id)
 	context = {'category': category}
 	template = 'categories.html'
 	return render(request, template, context)
+
+def create_category_view(request):
+    	template = 'createCategory.html'
+	return render(request, template)
+
+def create_category(request):
+	category_name = request.POST.get('category_name')
+	category_description = request.POST.get('category_description')
+	if(category_name  and category_description):
+		category = Category.objects.create(name = category_name, description = category_description)
+		category.save()
+
+	categories = Category.objects.all
+	return render(request, 'categories.html', context={
+                'info_message': "Successfully!", 'categories': categories
+                })
 
 @login_required(login_url='/accounts/login/')
 def create(request):
@@ -52,6 +68,7 @@ def create_idea(request):
                 })
 
 	return render(request)
+
 @login_required(login_url='/accounts/login/')
 def add_to_cart(request, ideat_id):
 	idea = Idea.objects.get(id=idea_id)
