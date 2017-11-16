@@ -35,7 +35,7 @@ def category(request, category_id):
 	return render(request, template, context)
 
 def create_category_view(request):
-    	template = 'createCategory.html'
+	template = 'createCategory.html'
 	return render(request, template)
 
 def create_category(request):
@@ -52,15 +52,17 @@ def create_category(request):
 
 @login_required(login_url='/accounts/login/')
 def create(request):
+	categories = Category.objects.all
+	context = { 'categories': categories }
 	template = 'create.html'
-	return render(request, template)
+	return render(request, template, context)
 
 @login_required(login_url='/accounts/login/')
 def create_idea(request):
 	user = request.user
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
-	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user)
+	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.latest('id'))
 	idea.save()
 	ideas = Idea.objects.all
 	return render(request, 'ideas.html', context={

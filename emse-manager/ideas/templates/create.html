@@ -25,6 +25,21 @@
 							<textarea  id="idea_description" rows="10" class="form-control" name="idea_description" ></textarea>
 						</td>
 					</tr>
+					<tr>
+						<td>Idea category: </td>
+						<td>
+							<div class="dropdown">
+							    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+							    <span class="caret"></span></button>
+							    <ul class="dropdown-menu">
+							    	{% for cat in categories %} 
+							      <li><a href="#">{{ cat.name }}</a></li>
+							      {% endfor %}
+							    </ul>
+							  </div>
+						</td>
+
+					</tr>
 				</tbody>
 			</table>
 			<div class="col-md-4 text-center"> 
