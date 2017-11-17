@@ -42,6 +42,7 @@
             <th>Idea</th>
             <th>Description</th>
             <th>Owner</th>
+            <th>Category</th>
             <th>Detail</th>
         </tr>
         </thead>
@@ -51,6 +52,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
             <td>{{ item.owner }}</td>
+            <td>{{ item.catId.name }}</td>
             <td><a class="btn btn-success" href="{% url 'idea' item.id %}">View</a></td>
             <td><a class="btn btn-warning" href="{% url 'edit_idea' item.id %}">Edit</a></td>
         </tr>
