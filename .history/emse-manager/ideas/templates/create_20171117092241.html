@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class='col-md-4 col-md-offset-2'>
+	<h1>Create new Idea</h1>
+</div>
+{% if request.user.is_authenticated %}
+<div class="container">
+	<form class="create" method="POST" action="{% url 'create_idea' %}">
+		{% csrf_token %}
+		{{ form|crispy }}
+		<div class=" col-md-9 col-lg-9 "> 
+			<table class="table table-user-information">
+				<tbody>
+					<tr>
+						<td>Idea name:</td>
+						<td>
+							<input id="idea_name" type="text" class="form-control" name="idea_name" >
+						</td>
+					</tr>
+					<tr>
+						<td>Idea description:</td>
+						<td>
+							<textarea  id="idea_description" rows="10" class="form-control" name="idea_description" ></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>Idea category: </td>
+						<td>
+							<div class="dropdown">
+							    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
+							    <span class="caret"></span></button>
+							    <ul class="dropdown-menu">
+							    	{% for cat in categories %} 
+							      <li><a href="#">{{ cat.name }}</a></li>
+							      {% endfor %}
+							    </ul>
+							  </div>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			<div class="col-md-4 text-center"> 
+					<button class="btn btn-primary" type="submit">Save</button>
+					<a class="btn btn-warning" href="{% url 'idea'  %}">Cancel</a>
+			</div>
+		</div>
+
+
+	</form>
+</div>
+
+{% endif %}
+
+
+
+{% endblock %}

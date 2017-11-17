@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block styles %}
+<style>
+.jumbotron {
+	text-align: center;
+}
+</style>
+{% endblock%}
+
+{% block jumbotron %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Welcome to Ideas Unlimited</h1>
+        <p>This is a emse-manager web application developed in Python + Django web framework. You can register your profile, update informations, add some products to you cart and checkout using electrical payments.</p>
+      </div>
+{% endblock %}
+{% block content %}
+<div class="row">
+        <div class="col-md-4">
+          <h2>Python</h2>
+          <p>Python is an interpreted, object-oriented, high-level programming language with dynamic semantics. Its high-level built in data structures, combined with dynamic typing and dynamic binding, as well as for use as a scripting or glue language to connect existing components together.</p>
+          <p><a class="btn btn-default" href="https://www.python.org/" role="button">View details »</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Django</h2>
+          <p>Django is a high-level Python Web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of Web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.  </p>
+          <p><a class="btn btn-default" href="https://www.djangoproject.com/" role="button">View details »</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>PostgreSQL</h2>
+          <p>PostgreSQL is an object-relational database (ORDBMS) – i.e. an RDBMS, with additional (optional use) "object" features – with an emphasis on extensibility and standards compliance. As a database server, its primary functions are to store data securely and return that data in response to requests from other software applications. </p>
+          <p><a class="btn btn-default" href="https://www.postgresql.org/" role="button">View details »</a></p>
+        </div>
+      </div>
+{% endblock %}
