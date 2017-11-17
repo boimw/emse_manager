@@ -19,8 +19,8 @@ def ideas(request):
 	
 def idea(request, idea_id):
 	idea = Idea.objects.get(id=idea_id)
-	category = Category.objects.get(id=idea.catId)
-	context = {'idea': idea, 'category': category}
+	
+	context = {'idea': idea}
 	template = 'idea.html'
 	return render(request,template,context)
 
