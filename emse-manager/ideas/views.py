@@ -19,7 +19,6 @@ def ideas(request):
 	
 def idea(request, idea_id):
 	idea = Idea.objects.get(id=idea_id)
-	
 	context = {'idea': idea}
 	template = 'idea.html'
 	return render(request,template,context)
@@ -85,7 +84,8 @@ def create_idea(request):
 @login_required(login_url='/accounts/login/')
 def edit(request,idea_id):
 	idea=Idea.objects.get(id=idea_id)
-	context = {'idea': idea}
+	categories = Category.objects.all
+	context = {'idea': idea, 'categories': categories }
 	template = 'edit.html'
 	return render(request, template, context)
 
