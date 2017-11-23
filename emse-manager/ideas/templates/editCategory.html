@@ -3,37 +3,37 @@
 {% block content %}
 
 <div class='col-md-4 col-md-offset-2'>
-<h1>Edit Category</h1>
+  <h1>Edit Category</h1>
 </div>
-  <div class="container">
-    <form class="edit" method="POST" action="{% url 'update_category' category.id %}">
-		  {% csrf_token %}
-		  {{ form|crispy }}
-		  <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>Cetegory Name:</td>
-                        <td>
-                        <input id="category_name" type="text" name="category_name" value= "{{ category.name }}" required />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Cetegory Description:</td>
-                        <td>
-                        <textarea id="category_description" type="text" name="category_description" required>{{ category.description }}</textarea>
-                        </td>
-                      </tr>
-                  </tbody>
-              </table>
-              <div class="col-md-4 text-center"> 
-                <button class="btn btn-primary" type="submit">Save</button>
-                <a class="btn btn-warning" href="{% url 'categories'  %}">Cancel</a>
-              </div>
-          </div>
-		  
-		</form>
-   </div>
+<div class="container">
+  <form class="edit" method="POST" action="{% url 'update_category' category.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class=" col-md-9 col-lg-9 "> 
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Cetegory Name:</td>
+            <td>
+              <input id="category_name" type="text" name="category_name" class="form-control" value= "{{ category.name }}" required />
+            </td>
+          </tr>
+          <tr>
+            <td>Cetegory Description:</td>
+            <td>
+              <textarea id="category_description" type="text" rows="10" class="form-control" name="category_description" required>{{ category.description }}</textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12 text-center"> 
+        <button class="btn btn-success" type="submit">Save</button>
+        <a class="btn btn-default" href="{% url 'categories'  %}">Cancel</a>
+      </div>
+    </div>
+    
+  </form>
+</div>
 
 
 {% endblock %}

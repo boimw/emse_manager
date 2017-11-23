@@ -3,66 +3,74 @@
 {% block content %}
 
 <div class='col-md-4 col-md-offset-2'>
-
-
+   {% if error_message %}
+   <p id="error">{{ error_message }}</p> 
+   {% endif %}
+   {% if info_message %}
+   <div class="alert alert-info" role="alert">
+    {{ info_message }}
+</div> 
+{% endif %}
 </div>
 
 <div class="container">
-        <div id="data-table" class="panel panel-primary table-panel">
-                <div class="panel-heading table-panel-heading">
-                    <h1 >Ideas</h1>
-                    <div class="pull-right">
-                        
-                        </div>
-                    <div class="pull-right">        
-                        <form id="searchform" method="POST"  action="{% url 'idea_search' %}" accept-charset="utf-8">
-                            {% csrf_token %}
-                            {{ form|crispy }}
-                            <button class="searchbutton" type="submit">
-                                <span style="color: black;" class="glyphicon glyphicon-search"></span>
-                            </button>
-                            <input style="color: black;" class="searchfield" id="searchbox" name="searchbox" type="text" placeholder="Search">
-                        </form>
-                    </div>
-                    <div >  
-                        <a class="btn btn-success" href="{% url 'categories' %}">Idea Categories</a>
-                        
-                        {% if request.user.is_authenticated %}
-                        <a class="btn btn-warning" href="{% url 'create'  %}">Add Idea</a>
-                         {% endif %}
+    <div id="data-table" class="panel panel-default table-panel">
+        <div class="panel-heading table-panel-heading">
+            <h1 >Ideas</h1>
+           
+            <div class="pull-right">        
+                <form id="searchform" method="POST"  action="{% url 'idea_search' %}" accept-charset="utf-8">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                   
+                    <input class="form-control" id="searchbox" name="searchbox" type="text" placeholder="Search">
+                     </div><div class="pull-right"> 
+                     <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+            </div>
+            <div >  
+                {% if request.user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'create'  %}">Add Idea</a>
+                {% endif %}
 
-                         
-                    </div>
-                </div>
-    <div class="panel-body">
-                        
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Idea</th>
-            <th>Description</th>
-            <th>Owner</th>
-            <th>Category</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for item in ideas.all %}
-        <tr>
-            <td>{{ item.name }} {{request.user}}</td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.owner }}</td>
-            <td>{{ item.catId.name }}</td>
-            <td><a class="btn btn-success" href="{% url 'idea' item.id %}">View</a></td>
-           
-            <td> {% if request.user == item.owner %}<a class="btn btn-warning" href="{% url 'edit_idea' item.id %}">Edit</a> {% endif %}</td>
-            <td> {% if request.user == item.owner %}<a class="btn btn-danger" href="{% url 'delete_idea' item.id %}">Delete</a> {% endif %}</td>
-           
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
+                
+            </div>
+        </div>
+        <div class="panel-body">
+            
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Idea</th>
+                        <th>Description</th>
+                        <th>Owner</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in ideas.all %}
+                    <tr>
+                        <td>{{ item.name }} {{request.user}}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.owner }}</td>
+                        <td>{{ item.catId.name }}</td>
+                        <td>
+                          <a class="btn btn-info" href="{% url 'idea' item.id %}">View</a>
+                            {% if request.user == item.owner %}
+                              <a class="btn btn-warning" href="{% url 'edit_idea' item.id %}">Edit</a> 
+                            {% endif %}
+                            {% if request.user == item.owner %}
+                              <a class="btn btn-danger" href="{% url 'delete_idea' item.id %}">Delete</a> 
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}
