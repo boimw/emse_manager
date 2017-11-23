@@ -29,23 +29,23 @@
 						<td>Idea category: </td>
 						<td>
 							<div class="form-group">
-						     <select class="form-control" id="category_select" name="category_select">
-						     	{% for cat in categories %} 
-						     		<option value='{{ cat.id }}' 
-						     		{% if cat.id == idea.catId.id %}
-						     			selected 
-						     		{% endif %} 
-						     		> {{ cat.name }}</option>
-						      	{% endfor %}
-						     </select>
+								<select class="form-control" id="category_select" name="category_select">
+									{% for cat in categories %} 
+									<option value='{{ cat.id }}' 
+									{% if cat.id == idea.catId.id %}
+									selected 
+									{% endif %} 
+									> {{ cat.name }}</option>
+									{% endfor %}
+								</select>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			<div class="col-md-4 text-center"> 
-					<button class="btn btn-primary" type="submit">Save</button>
-					<a class="btn btn-warning" href="{% url 'ideas'  %}">Cancel</a>
+			<div class="col-md-12 text-center"> 
+				<button class="btn btn-success" type="submit">Save</button>
+				<a class="btn btn-default" href="{% url 'ideas'  %}">Cancel</a>
 			</div>
 		</div>
 

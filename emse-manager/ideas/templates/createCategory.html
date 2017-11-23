@@ -3,37 +3,37 @@
 {% block content %}
 
 <div class='col-md-4 col-md-offset-2'>
-<h1>Create Category</h1>
+  <h1>Create Category</h1>
 </div>
-  <div class="container">
-    <form class="create" method="POST" action="{% url 'new_category' %}">
-		  {% csrf_token %}
-		  {{ form|crispy }}
-		  <div class=" col-md-9 col-lg-9 "> 
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>Cetegory Name:</td>
-                        <td>
-                        <input id="category_name" type="text" name="category_name" required />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Cetegory Description:</td>
-                        <td>
-                        <textarea id="category_description" type="text" name="category_description" required></textarea>
-                        </td>
-                      </tr>
-                  </tbody>
-              </table>
-              <div class="col-md-4 text-center"> 
-                <button class="btn btn-primary" type="submit">Save</button>
-                <a class="btn btn-warning" href="{% url 'categories'  %}">Cancel</a>
-              </div>
-          </div>
-		  
-		</form>
-   </div>
+<div class="container">
+  <form class="create" method="POST" action="{% url 'new_category' %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class=" col-md-9 col-lg-9 "> 
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Cetegory Name:</td>
+            <td>
+              <input id="category_name" type="text" class="form-control" name="category_name" required />
+            </td>
+          </tr>
+          <tr>
+            <td>Cetegory Description:</td>
+            <td>
+              <textarea id="category_description" rows="10" class="form-control" type="text" name="category_description" required></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12 text-center"> 
+        <button class="btn btn-success" type="submit">Save</button>
+        <a class="btn btn-default" href="{% url 'categories'  %}">Cancel</a>
+      </div>
+    </div>
+    
+  </form>
+</div>
 
 
 {% endblock %}
