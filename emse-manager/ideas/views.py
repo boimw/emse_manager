@@ -31,9 +31,44 @@ def categories(request):
 
 def category(request, category_id):
 	category = Category.objects.get(id=category_id)
-	context = {'category': category}
+	categories = Category.objects.all
+	context = {'categories': categories}
 	template = 'categories.html'
+	return render(request, 'categories.html', context={
+                'info_message': "Successfully!", 'categories': categories
+                })
+
+@login_required(login_url='/accounts/login/')
+def delete_category(request, category_id):
+    	category = Category.objects.get(id=category_id)
+	category.delete()
+	categories = Category.objects.all
+	context = {'categories': categories}
+	template = 'categories.html'
+	return render(request, 'categories.html', context={
+                'info_message': "Successfully!", 'categories': categories
+                })
+
+@login_required(login_url='/accounts/login/')
+def edit_category(request, category_id):
+	category=Category.objects.get(id=category_id)
+	context = {'category': category}
+	template = 'editCategory.html'
 	return render(request, template, context)
+
+@login_required(login_url='/accounts/login/')
+def update_category(request, category_id):
+	category=Category.objects.get(id=category_id)
+	category_name = request.POST.get('category_name')
+	category_description = request.POST.get('category_description')
+	category.name = category_name
+	category.description = category_description
+	category.save()
+	categories = Category.objects.all
+	template = 'categories.html'
+	return render(request, template, context={
+                'info_message': "Successfully!", 'categories': categories
+                })
 
 @login_required(login_url='/accounts/login/')
 def create_category_view(request):
@@ -90,15 +125,28 @@ def edit(request,idea_id):
 	return render(request, template, context)
 
 @login_required(login_url='/accounts/login/')
+def delete(request,idea_id):
+	idea=Idea.objects.get(id=idea_id)
+	idea.delete()
+	ideas = Idea.objects.all
+	user = request.user
+	return render(request, 'ideas.html', context={
+                'info_message': "Successfully!", 'user': user, 'ideas': ideas
+                })
+
+@login_required(login_url='/accounts/login/')
 def update(request,idea_id):
 	idea=Idea.objects.get(id=idea_id)
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
 	idea.name = idea_name
 	idea.description = idea_description
+	idea.catId = Category.objects.latest('id')
 	idea.save()
-	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': idea
+	ideas = Idea.objects.all
+	user = request.user
+	return render(request, 'ideas.html', context={
+                'info_message': "Successfully!", 'user': user, 'ideas': ideas
                 })
 
 

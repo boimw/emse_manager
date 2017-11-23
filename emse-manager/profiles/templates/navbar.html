@@ -15,10 +15,10 @@
           {% url 'home' as home %}
           {% url 'about' as about %}
           {% url 'contact' as contact %}
-          {% url 'idea' as idea %}
+          {% url 'ideas' as ideas %}
           {% url 'cart' as cart %}   
             <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'home' %}">Home</a></li>
-            <li {% if request.path == idea %} class="active" {% endif %}><a href="{% url 'idea' %}">Ideas</a></li>
+            <li {% if request.path == ideas %} class="active" {% endif %}><a href="{% url 'ideas' %}">Ideas</a></li>
             <li {% if request.path == about %} class="active" {% endif %}><a href="{% url 'about' %}">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
