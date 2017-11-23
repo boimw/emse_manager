@@ -126,7 +126,8 @@ def create_idea(request):
 	user = request.user
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
-	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.latest('id'))
+	idea_category = request.POST.get('category_select')
+	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.get(id=idea_category))
 	idea.save()
 	ideas = Idea.objects.all
 	return render(request, 'ideas.html', context={
@@ -158,9 +159,10 @@ def update(request,idea_id):
 	idea=Idea.objects.get(id=idea_id)
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
+	idea_category = request.POST.get('category_select')
 	idea.name = idea_name
 	idea.description = idea_description
-	idea.catId = Category.objects.latest('id')
+	idea.catId = Category.objects.get(id=idea_category)
 	idea.save()
 	ideas = Idea.objects.all
 	user = request.user
