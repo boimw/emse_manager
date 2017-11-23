@@ -17,17 +17,17 @@
     <div id="data-table" class="panel panel-default table-panel">
         <div class="panel-heading table-panel-heading">
             <h1 >Ideas</h1>
-            <div class="pull-right">
-                
-            </div>
+           
             <div class="pull-right">        
                 <form id="searchform" method="POST"  action="{% url 'idea_search' %}" accept-charset="utf-8">
                     {% csrf_token %}
                     {{ form|crispy }}
-                    <button class="searchbutton" type="submit">
-                        <span style="color: black;" class="glyphicon glyphicon-search"></span>
+                   
+                    <input class="form-control" id="searchbox" name="searchbox" type="text" placeholder="Search">
+                     </div><div class="pull-right"> 
+                     <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search"></span>
                     </button>
-                    <input style="color: black;" class="searchfield" id="searchbox" name="searchbox" type="text" placeholder="Search">
                 </form>
             </div>
             <div >  

@@ -51,7 +51,7 @@ def delete_category(request, category_id):
 	context = {'categories': categories}
 	template = 'categories.html'
 	return render(request, 'categories.html', context={
-                'info_message': "Successfully!", 'categories': categories
+                'info_message': "Category deleted", 'categories': categories
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -86,7 +86,7 @@ def update_category(request, category_id):
 	categories = Category.objects.all
 	template = 'categories.html'
 	return render(request, template, context={
-                'info_message': "Successfully!", 'categories': categories
+                'info_message': "Category updated", 'categories': categories
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -104,7 +104,7 @@ def create_category(request):
 
 	categories = Category.objects.all
 	return render(request, 'categories.html', context={
-                'info_message': "Successfully!", 'categories': categories
+                'info_message': "Category created", 'categories': categories
                 })
 
 def search(request):
@@ -131,7 +131,7 @@ def create_idea(request):
 	idea.save()
 	ideas = Idea.objects.all
 	return render(request, 'ideas.html', context={
-                'info_message': "Successfully!", 'user': user, 'ideas': ideas
+                'info_message': "Idea successfully created", 'user': user, 'ideas': ideas
                 })
 
 	return render(request)
@@ -151,7 +151,7 @@ def delete(request,idea_id):
 	ideas = Idea.objects.all
 	user = request.user
 	return render(request, 'ideas.html', context={
-                'info_message': "Successfully!", 'user': user, 'ideas': ideas
+                'info_message': "Idea deleted", 'user': user, 'ideas': ideas
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -167,7 +167,7 @@ def update(request,idea_id):
 	ideas = Idea.objects.all
 	user = request.user
 	return render(request, 'ideas.html', context={
-                'info_message': "Successfully!", 'user': user, 'ideas': ideas
+                'info_message': "Idea successfully updated", 'user': user, 'ideas': ideas
                 })
 
 
