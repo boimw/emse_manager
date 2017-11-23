@@ -40,6 +40,7 @@ urlpatterns = [
     url(r'^ideas/new_category_view/$', ideas_views.create_category_view, name='create_category'),
     url(r'^cart/$', ideas_views.cart, name='cart'), 
     url(r'^idea/(?P<idea_id>[0-9]+)/$', ideas_views.idea, name='idea'),
+    url(r'^idea/(?P<idea_id>[0-9]+)/comment/$', ideas_views.add_comment, name='add_comment'),
     url(r'^category/(?P<category_id>[0-9]+)/$', ideas_views.category, name='category'),
     url(r'^category/(?P<category_id>[0-9]+)/edit/$', ideas_views.edit_category, name='edit_category'),
     url(r'^category/(?P<category_id>[0-9]+)/update/$', ideas_views.update_category, name='update_category'),

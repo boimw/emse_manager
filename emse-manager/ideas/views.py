@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-from .models import Idea, User, Rating, Category
+from .models import Idea, User, Rating, Category, Comment
 from carts.cart import Cart 
 # Create your views here.
 
@@ -19,7 +19,12 @@ def ideas(request):
 	
 def idea(request, idea_id):
 	idea = Idea.objects.get(id=idea_id)
-	context = {'idea': idea}
+	try:
+		comments = Comment.objects.filter(idea=idea)
+	except Comment.DoesNotExist:
+		comments = None
+	
+	context = {'idea': idea, 'comments': comments}
 	template = 'idea.html'
 	return render(request,template,context)
 
@@ -47,6 +52,18 @@ def delete_category(request, category_id):
 	template = 'categories.html'
 	return render(request, 'categories.html', context={
                 'info_message': "Successfully!", 'categories': categories
+                })
+
+@login_required(login_url='/accounts/login/')
+def add_comment(request, idea_id):
+    	user = request.user
+	comment_idea=Idea.objects.get(id=idea_id)
+	comment_text = request.POST.get('comment_text')
+	comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
+	comment.save()
+	comments = Comment.objects.filter(idea=comment_idea)
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
                 })
 
 @login_required(login_url='/accounts/login/')
