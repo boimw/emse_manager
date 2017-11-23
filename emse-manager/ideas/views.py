@@ -45,7 +45,7 @@ def category(request, category_id):
 
 @login_required(login_url='/accounts/login/')
 def delete_category(request, category_id):
-    	category = Category.objects.get(id=category_id)
+	category = Category.objects.get(id=category_id)
 	category.delete()
 	categories = Category.objects.all
 	context = {'categories': categories}
@@ -56,12 +56,12 @@ def delete_category(request, category_id):
 
 @login_required(login_url='/accounts/login/')
 def add_comment(request, idea_id):
-    	user = request.user
+	user = request.user
 	comment_idea=Idea.objects.get(id=idea_id)
 	comment_text = request.POST.get('comment_text')
 	
 	if(comment_text):
-    		comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
+		comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
 		comment.save()
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
