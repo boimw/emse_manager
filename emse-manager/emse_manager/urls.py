@@ -24,6 +24,7 @@ from checkout import views as checkout_views
 
 urlpatterns = [
 	url(r'^$', profiles_views.home, name='home'), 
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^about/$', profiles_views.about, name='about'),
     url(r'^profile/$', profiles_views.userProfile, name='profile'),
     url(r'^edit/(?P<user_id>[0-9]+)/$', profiles_views.edit, name='edit'),

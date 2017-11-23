@@ -16,9 +16,12 @@
           {% url 'about' as about %}
           {% url 'contact' as contact %}
           {% url 'ideas' as ideas %}
+          {% url 'categories' as categories %}
           {% url 'cart' as cart %}   
+          {% url 'admin' as admin %}         
             <li {% if request.path == home %} class="active" {% endif %}><a href="{% url 'home' %}">Home</a></li>
             <li {% if request.path == ideas %} class="active" {% endif %}><a href="{% url 'ideas' %}">Ideas</a></li>
+            <li {% if request.path == categories %} class="active" {% endif %}><a href="{% url 'categories' %}">Categories</a></li>
             <li {% if request.path == about %} class="active" {% endif %}><a href="{% url 'about' %}">About</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

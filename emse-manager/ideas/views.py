@@ -59,8 +59,10 @@ def add_comment(request, idea_id):
     	user = request.user
 	comment_idea=Idea.objects.get(id=idea_id)
 	comment_text = request.POST.get('comment_text')
-	comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
-	comment.save()
+	
+	if(comment_text):
+    		comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
+		comment.save()
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
                 'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
