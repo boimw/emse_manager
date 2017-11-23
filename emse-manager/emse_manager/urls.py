@@ -48,7 +48,6 @@ urlpatterns = [
     url(r'^category/(?P<category_id>[0-9]+)/delete/$', ideas_views.delete_category, name='delete_category'),
     url(r'^add_to_cart/(?P<idea_id>[0-9]+)/$', ideas_views.add_to_cart, name='add_to_cart'),
     url(r'^remove_from_cart/(?P<idea_id>[0-9]+)/$', ideas_views.remove_from_cart, name='remove_from_cart'),
-    url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
 ]
 if settings.DEBUG:

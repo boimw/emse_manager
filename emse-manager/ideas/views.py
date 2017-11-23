@@ -36,12 +36,10 @@ def categories(request):
 
 def category(request, category_id):
 	category = Category.objects.get(id=category_id)
-	categories = Category.objects.all
-	context = {'categories': categories}
-	template = 'categories.html'
-	return render(request, 'categories.html', context={
-                'info_message': "Successfully!", 'categories': categories
-                })
+	ideas = Idea.objects.all
+	context = {'category': category, 'ideas': ideas}
+	template = 'category.html'
+	return render(request, template, context=context)
 
 @login_required(login_url='/accounts/login/')
 def delete_category(request, category_id):

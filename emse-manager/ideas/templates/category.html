@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class='col-md-4 col-md-offset-2'>
+  <h1>{{ category.name }}</h1>
+</div>
+<div class="container">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class=" col-md-9 col-lg-9 "> 
+      <table class="table">
+        <tbody>
+            <tr>
+            <td>
+              <textarea id="category_description" type="text" rows="10" class="form-control" name="category_description" readonly >{{ category.description }}</textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+         </div>
+
+          <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Idea</th>
+                        <th>Description</th>
+                        <th>Owner</th>
+                         <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for item in ideas.all %}
+                     {% if item.catId.id == category.id   %}
+                    <tr>
+
+                        <td>{{ item.name }} {{request.user}}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.owner }}</td>
+                        <td><a class="btn btn-info" href="{% url 'idea' item.id %}">View</a></td>
+                    </tr>
+                     {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+</div>
+
+{% endblock %}
