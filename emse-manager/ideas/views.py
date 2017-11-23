@@ -45,7 +45,7 @@ def category(request, category_id):
 
 @login_required(login_url='/accounts/login/')
 def delete_category(request, category_id):
-    	category = Category.objects.get(id=category_id)
+	category = Category.objects.get(id=category_id)
 	category.delete()
 	categories = Category.objects.all
 	context = {'categories': categories}
@@ -56,12 +56,12 @@ def delete_category(request, category_id):
 
 @login_required(login_url='/accounts/login/')
 def add_comment(request, idea_id):
-    	user = request.user
+	user = request.user
 	comment_idea=Idea.objects.get(id=idea_id)
 	comment_text = request.POST.get('comment_text')
 	
 	if(comment_text):
-    		comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
+		comment = Comment.objects.create(comment = comment_text,  owner = user, idea=comment_idea)
 		comment.save()
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
@@ -126,7 +126,8 @@ def create_idea(request):
 	user = request.user
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
-	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.latest('id'))
+	idea_category = request.POST.get('category_select')
+	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.get(id=idea_category))
 	idea.save()
 	ideas = Idea.objects.all
 	return render(request, 'ideas.html', context={
@@ -158,9 +159,10 @@ def update(request,idea_id):
 	idea=Idea.objects.get(id=idea_id)
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
+	idea_category = request.POST.get('category_select')
 	idea.name = idea_name
 	idea.description = idea_description
-	idea.catId = Category.objects.latest('id')
+	idea.catId = Category.objects.get(id=idea_category)
 	idea.save()
 	ideas = Idea.objects.all
 	user = request.user

@@ -16,27 +16,25 @@
 					<tr>
 						<td>Idea name:</td>
 						<td>
-							<input id="idea_name" type="text" class="form-control" name="idea_name" >
+							<input id="idea_name" type="text" class="form-control" name="idea_name" required>
 						</td>
 					</tr>
 					<tr>
 						<td>Idea description:</td>
 						<td>
-							<textarea  id="idea_description" rows="10" class="form-control" name="idea_description" ></textarea>
+							<textarea  id="idea_description" rows="10" class="form-control" name="idea_description" required></textarea>
 						</td>
 					</tr>
 					<tr>
 						<td>Idea category: </td>
 						<td>
-							<div class="dropdown">
-							    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Categories
-							    <span class="caret"></span></button>
-							    <ul class="dropdown-menu">
-							    	{% for cat in categories %} 
-							      <li><a href="#">{{ cat.name }}</a></li>
-							      {% endfor %}
-							    </ul>
-							  </div>
+							<div class="form-group">
+						     <select class="form-control" id="category_select" name="category_select">
+						     	{% for cat in categories %} 
+						     		<option value='{{ cat.id }}'>{{ cat.name }}</option>
+						      	{% endfor %}
+						     </select>
+							</div>
 						</td>
 					</tr>
 				</tbody>
