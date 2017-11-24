@@ -39,7 +39,7 @@
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
                          <td><a class="btn btn-info" href="{% url 'category' item.id %}">View </a>
-                            {% if request.user.is_super_user %}
+                            {% if request.user.is_superuser %}
                         <a class="btn btn-warning" href="{% url 'edit_category' item.id %}">Edit</a>
                         <a class="btn btn-danger" href="{% url 'delete_category' item.id %}">Delete</a>
                          {% endif %}
