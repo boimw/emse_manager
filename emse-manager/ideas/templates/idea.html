@@ -50,6 +50,38 @@
     </div>
   </div>
 
+  <div class='col-sm-4'>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Vote</h3>
+      </div>
+      <div class="panel-body">
+        {{ idea.vote_score  }}
+          <div class='col-sm-4 pull-right'>
+            <form  method="post" action="{% url 'idea_vote_up' idea.id %}">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              <button type="submit" class="btn btn-success">
+                <span class="glyphicon glyphicon-chevron-up"></span>
+              </button>
+           </form> 
+           <form  method="post" action="{% url 'idea_vote_down' idea.id %}">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              <button type="submit" class="btn btn-danger">
+                <span class="glyphicon glyphicon-chevron-down"></span>
+              </button>
+           </form>
+
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+
      <!-- <div class='col-sm-4'>
     <div class="panel panel-primary">
       <div class="panel-heading">

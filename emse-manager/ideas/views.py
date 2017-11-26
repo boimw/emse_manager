@@ -24,9 +24,21 @@ def idea(request, idea_id):
 	except Comment.DoesNotExist:
 		comments = None
 	
-	context = {'idea': idea, 'comments': comments}
+	context = {'idea': idea, 'comments': comments }
 	template = 'idea.html'
 	return render(request,template,context)
+
+def vote_up(request, idea_id):
+	user = request.user
+	idea = Idea.objects.get(id=idea_id)
+	idea.votes.up(user.id)
+	return HttpResponseRedirect(reverse('idea', kwargs={'idea_id':idea.id}))
+
+def vote_down(request, idea_id):
+	user = request.user
+	idea = Idea.objects.get(id=idea_id)
+	idea.votes.down(user.id)
+	return HttpResponseRedirect(reverse('idea', kwargs={'idea_id':idea.id}))
 
 def categories(request):
 	categories = Category.objects.all

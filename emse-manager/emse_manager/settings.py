@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'carts',
     'checkout',
     'stripe',
+    'vote',
     'django.contrib.auth',
     'django.contrib.sites',
     'allauth',
