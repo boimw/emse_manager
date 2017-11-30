@@ -15,7 +15,7 @@ class Idea(VoteModel, models.Model):
 	catId = models.ForeignKey(Category, on_delete=models.CASCADE)
 	owner=models.ForeignKey(User,on_delete=models.CASCADE)
 
-class Comment(models.Model):
+class Comment(VoteModel, models.Model):
 	comment = models.CharField(max_length=50)
 	likeCount = models.IntegerField(default=0)
 	date = models.DateTimeField(auto_now_add=True)

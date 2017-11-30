@@ -30,23 +30,48 @@
             <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
           </div>
           <div class="commentText">
-            <p class="">{{item.comment}}</p> <span class="date sub-text">Posted By: <strong>{{item.owner}}</strong> on {{item.date}}</span>
+            <p class="">{{item.comment}}</p> <span class="date sub-text">
+              Posted By: <strong>{{item.owner}}</strong> on {{item.date}}
+              {% if request.user.is_authenticated %}
+              {% if item.owner == request.user %}
+              <a class="btn" title="delete" style ="padding: 5px" href="{% url 'delete_comment' idea_id=idea.id comment_id=item.id  %}"><span class="glyphicon glyphicon-trash"></span></a>
+              <a class="btn" title="edit" style ="padding: 5px"  href="{% url 'comment_for_edit' idea_id=idea.id comment_id=item.id  %}"><span class="glyphicon glyphicon-pencil"></span></a>
+              {% endif %}
+              <a class="btn" title="like" style ="padding: 5px" href="{% url 'like_comment' idea_id=idea.id comment_id=item.id %}"><span class="glyphicon glyphicon-thumbs-up"></span>{{item.vote_score}}</a>
+              {% endif %}
+            </span>
             
           </div>
         </li>
         {% endfor %}
       </ul>
-      <form role="form" class="create" method="POST" action="{% url 'add_comment' idea.id %}">
+      {% if comment %}
+      <form role="form" class="edit" method="POST" action="{% url 'edit_comment' idea_id=idea.id comment_id=comment.id %}">
         {% csrf_token %}
         <div class=" col-md-9 col-lg-8 "> 
         <div class="form-group">
-          <textarea  id="comment_text" class="form-control"  name="comment_text" placeholder="Your comments" required></textarea>
+          <textarea  id="edit_comment_text" class="form-control"  name="edit_comment_text" placeholder="Your comments" required>{{comment.comment}}</textarea>
         </div>
       </div>
       <div class="col-md-12 text-center"> 
-      <button type="submit" class="btn btn-default">Comment</button>
+      <button type="submit" class="btn btn-primary">Edit</button>
+      <a class="btn btn-default" href="{% url 'idea' idea.id %}">Cancel</a>
     </div>
       </form>
+      {% endif %}
+      {% if not comment %}
+      <form role="form" class="create" method="POST" action="{% url 'add_comment' idea.id %}">
+          {% csrf_token %}
+          <div class=" col-md-9 col-lg-8 "> 
+          <div class="form-group">
+            <textarea  id="comment_text" class="form-control"  name="comment_text" placeholder="Your comments" required></textarea>
+          </div>
+        </div>
+        <div class="col-md-12 text-center"> 
+        <button type="submit" class="btn btn-default">Comment</button>
+      </div>
+        </form>
+        {% endif %}
     </div>
   </div>
 

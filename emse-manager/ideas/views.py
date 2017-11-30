@@ -79,6 +79,57 @@ def add_comment(request, idea_id):
                 })
 
 @login_required(login_url='/accounts/login/')
+def delete_comment(request, idea_id, comment_id):
+	comment = Comment.objects.get(id=comment_id)
+	comment.delete()
+	
+	comment_idea=Idea.objects.get(id=idea_id)
+	comments = Comment.objects.filter(idea=comment_idea)
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                })
+
+@login_required(login_url='/accounts/login/')
+def like_comment(request, idea_id, comment_id):
+	user = request.user
+	comment = Comment.objects.get(id=comment_id)
+	if (comment.owner != user):
+    		comment.votes.up(user.id)
+	
+	comment_idea=Idea.objects.get(id=idea_id)
+	comments = Comment.objects.filter(idea=comment_idea)
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                })
+
+@login_required(login_url='/accounts/login/')
+def edit_comment(request, idea_id, comment_id):
+	user = request.user
+	comment=Comment.objects.get(id=comment_id)
+	comment_text = request.POST.get('edit_comment_text')
+	comment_idea=Idea.objects.get(id=idea_id)
+	
+	if(comment_text):
+    		comment.comment=comment_text
+		comment.save()
+
+	comments = Comment.objects.filter(idea=comment_idea)
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                })
+
+@login_required(login_url='/accounts/login/')
+def comment_for_edit(request, idea_id, comment_id):
+	user = request.user
+	comment=Comment.objects.get(id=comment_id)
+	comment_idea=Idea.objects.get(id=idea_id)
+	comments = Comment.objects.filter(idea=comment_idea)
+	return render(request, 'idea.html', context={
+                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments, 'comment': comment
+                })
+
+comment_for_edit
+@login_required(login_url='/accounts/login/')
 def edit_category(request, category_id):
 	category=Category.objects.get(id=category_id)
 	context = {'category': category}
