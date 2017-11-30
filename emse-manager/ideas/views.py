@@ -124,7 +124,7 @@ def edit_comment(request, idea_id, comment_id):
 	comment_idea=Idea.objects.get(id=idea_id)
 	
 	if(comment_text):
-    		comment.comment=comment_text
+		comment.comment=comment_text
 		comment.save()
 
 	comments = Comment.objects.filter(idea=comment_idea)
