@@ -44,7 +44,7 @@ class Item(models.Model):
         return u'%d units of %s' % (self.quantity, self.product.__class__.__name__)
 
     def total_price(self):
-        return self.quantity * self.unit_price
+        return self.unit_price #self.quantity * 
     total_price = property(total_price)
 
     # product
