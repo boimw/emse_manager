@@ -45,45 +45,72 @@ $(function() {
 {% endblock %}
 
 {% block content %}
-<div class='col-md-4 col-md-offset-2'>
-<h1>Checkout</h1>
-</div>
+<div class="container">
 <div class='row'>
-<div class='col-sm-6 col-sm-offset-3'>
-<form action='' method="POST" id="payment-form"> {% csrf_token %}
-  <span class="payment-errors"></span>
+  <div class='col-md-4'>
+    <h1>Checkout</h1>
+  </div>
+    <div class="col-xs-12 col-md-4">
+      <form action='' method="POST" id="payment-form"> {% csrf_token %}
+         <span class="payment-errors"></span>
 
-<div class="alert alert-success" role="alert">
-        <strong> Total price:</strong> {{ cart.summary }} 
+      <div class="panel panel-default">
+          <div class="panel-heading">
+              <h3 class="panel-title">
+                  Payment Details
+              </h3>
+          </div>
+          <div class="panel-body">
+
+              <div class="form-group">
+                  <label for="cardNumber">
+                      CARD NUMBER</label>
+                  <div class="input-group">
+                      <input class='form-control' type="text" size="20" data-stripe="number" maxlength="19" placeholder="Valid Card Number"
+                          required autofocus />
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                  </div>
+              </div>
+              <div class="row">
+
+                  <div class="col-xs-7 col-md-7">
+                      <div class="form-group">
+                          <label for="expityMonth">
+                              EXPIRY DATE</label>
+                          <div class="col-xs-6 col-lg-6 pl-ziro">
+                              <input class="form-control" type="text" size="2" data-stripe="exp_month" maxlength="2" placeholder="MM" required />
+                          </div>
+                          <div class="col-xs-6 col-lg-6 pl-ziro">
+                              <input class="form-control" type="text" size="2" data-stripe="exp_year" maxlength="2" placeholder="YY" required /></div>
+                      </div>
+                  </div>
+
+                  <div class="col-xs-5 col-md-5 pull-right">
+                      <div class="form-group">
+                          <label for="cvCode">
+                              CV CODE</label>
+                          <input class="form-control" type="password" size="4" data-stripe="cvc" maxlength="3" placeholder="CV" required />
+                      </div>
+                  
+                  </div>
+              </div>
+
+          </div>
+
       </div>
-     
-  <div class="form-row">
-    <label>
-      <span>Card Number</span>
-      <input class='form-control' type="text" size="20" data-stripe="number">
-    </label>
+
+      <ul class="nav nav-pills nav-stacked">
+          <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-euro"></span>{{ cart.summary }} </span> Final Payment</a>
+          </li>
+      </ul>
+      
+      <br/>
+      <input class="btn btn-success btn-lg btn-block" type="submit" class="submit" value="Pay">
+    
+    </form>
   </div>
-
-  <div class="form-row">
-    <label>
-      <span>Expiration (MM/YY)</span>
-      <input type="text" size="2" data-stripe="exp_month">
-    </label>
-    <span> / </span>
-    <input type="text" size="2" data-stripe="exp_year">
-  </div>
-
-  <div class="form-row">
-    <label>
-      <span>CVC</span>
-      <input type="text" size="4" data-stripe="cvc">
-    </label>
-  </div>
-
-
-  <input class='btn btn-success' type="submit" class="submit" value="Submit Payment">
-</form>
 </div>
 </div>
+
 
 {% endblock %}

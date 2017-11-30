@@ -39,7 +39,8 @@
         <strong> Total price:</strong> {{ cart.summary }} 
     </div>
 </div>
-Go to: 
-<a class="btn btn-warning" href="{% url 'checkout'%}">Checkout</a>
-
+{% if cart.summary > 0 %}
+    Go to: 
+    <a class="btn btn-warning" href="{% url 'checkout'%}">Checkout</a>
+{% endif %}
 {% endblock %}
