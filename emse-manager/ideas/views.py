@@ -7,12 +7,26 @@ from django.db.models import Q
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
 from .models import Idea, User, Rating, Category, Comment
 from carts.cart import Cart 
 # Create your views here.
 
 def ideas(request):
-	ideas = Idea.objects.all
+	ideas_list = Idea.objects.all()
+	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
+
+	page = request.GET.get('page')
+	try:
+		ideas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ideas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ideas = paginator.page(paginator.num_pages)
+
 	context = {'ideas': ideas}
 	template = 'ideas.html'
 	return render(request, template, context)
@@ -119,7 +133,20 @@ def create_category(request):
 
 def search(request):
 	search = request.POST.get('searchbox')
-	ideas = Idea.objects.filter(Q(name__contains=search) | Q(description__contains=search))
+	ideas_list = Idea.objects.filter(Q(name__contains=search) | Q(description__contains=search))
+	
+	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
+
+	page = request.GET.get('page')
+	try:
+		ideas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ideas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ideas = paginator.page(paginator.num_pages)
+
 	context = {'ideas': ideas}
 	template = 'ideas.html'
 	return render(request, template, context)
@@ -139,12 +166,22 @@ def create_idea(request):
 	idea_category = request.POST.get('category_select')
 	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.get(id=idea_category))
 	idea.save()
-	ideas = Idea.objects.all
-	return render(request, 'ideas.html', context={
-                'info_message': "Idea successfully created", 'user': user, 'ideas': ideas
-                })
+	ideas_list = Idea.objects.all()
+	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
 
-	return render(request)
+	page = request.GET.get('page')
+	try:
+		ideas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ideas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ideas = paginator.page(paginator.num_pages)
+
+	context = {'info_message': "Idea successfully created", 'user': user, 'ideas': ideas}
+	return render(request, 'ideas.html', context=context)
+
 
 @login_required(login_url='/accounts/login/')
 def edit(request,idea_id):
@@ -158,7 +195,18 @@ def edit(request,idea_id):
 def delete(request,idea_id):
 	idea=Idea.objects.get(id=idea_id)
 	idea.delete()
-	ideas = Idea.objects.all
+	ideas_list = Idea.objects.all()
+	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
+	page = request.GET.get('page')
+	try:
+		ideas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ideas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ideas = paginator.page(paginator.num_pages)
+
 	user = request.user
 	return render(request, 'ideas.html', context={
                 'info_message': "Idea deleted", 'user': user, 'ideas': ideas
@@ -174,7 +222,20 @@ def update(request,idea_id):
 	idea.description = idea_description
 	idea.catId = Category.objects.get(id=idea_category)
 	idea.save()
-	ideas = Idea.objects.all
+	ideas = Idea.objects.all()
+
+	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
+
+	page = request.GET.get('page')
+	try:
+		ideas = paginator.page(page)
+	except PageNotAnInteger:
+		# If page is not an integer, deliver first page.
+		ideas = paginator.page(1)
+	except EmptyPage:
+		# If page is out of range (e.g. 9999), deliver last page of results.
+		ideas = paginator.page(paginator.num_pages)
+
 	user = request.user
 	return render(request, 'ideas.html', context={
                 'info_message': "Idea successfully updated", 'user': user, 'ideas': ideas

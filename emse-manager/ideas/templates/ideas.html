@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in ideas.all %}
+                    {% for item in ideas %}
                     <tr>
                         <td>{{ item.name }}</td>
                         <td>{{ item.description }}</td>
@@ -70,7 +70,37 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if ideas.has_previous %}
+                        <a class="btn btn-default" href="?page={{ ideas.previous_page_number }}">Previous page</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ ideas.number }} of {{ ideas.paginator.num_pages }}.
+                    </span>
+
+                    {% if ideas.has_next %}
+                        <a class="btn btn-default" href="?page={{ ideas.next_page_number }}">Next page</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block script %}
+  <script>
+        $(".btn-danger").on("click", function(e) {
+            e.preventDefault();
+            var location = $(this).attr('href');
+            bootbox.confirm("Do you want to delete the idea? This cannot be undone.", function(result){ 
+                if (result) {
+                    window.location.replace(location);
+                }
+            });
+        });
+    </script>
 {% endblock %}
