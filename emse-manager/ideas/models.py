@@ -13,7 +13,9 @@ class Idea(VoteModel, models.Model):
 	name = models.CharField(max_length=50)
 	description = models.CharField(max_length=300)
 	catId = models.ForeignKey(Category, on_delete=models.CASCADE)
-	owner=models.ForeignKey(User,on_delete=models.CASCADE)
+	owner=models.ForeignKey(User,on_delete=models.CASCADE, related_name='idea_owner')
+	price = models.FloatField(default=0.0)
+	on_sale = models.BooleanField(default=False)
 
 class Comment(VoteModel, models.Model):
 	comment = models.CharField(max_length=50)
@@ -21,7 +23,6 @@ class Comment(VoteModel, models.Model):
 	date = models.DateTimeField(auto_now_add=True)
 	idea = models.ForeignKey(Idea, on_delete=models.CASCADE)
 	owner = models.ForeignKey(User,on_delete=models.CASCADE)
-	
 
 class Rating(models.Model):
 	userId = models.ForeignKey(User, on_delete=models.CASCADE)

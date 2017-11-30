@@ -37,6 +37,31 @@
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<td>For sale:</td>
+						<td>
+							<div class="form-group">
+								<select class="form-control" id="on_sale" name="on_sale">
+									<option value='True' 
+									{% if idea.on_sale == True %}
+										selected 
+									{% endif %}>YES</option>
+									<option value='False'
+									{% if idea.on_sale == False %}
+										selected 
+									{% endif %}>NO</option>
+								</select>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>Starting price:</td>
+						<td>
+							<div class="form-group ">
+							    <input class="form-control" type="number" id="price" name="price">
+							</div>
+						</td>
+					</tr>
 				</tbody>
 			</table>
 			<div class="col-md-12 text-center"> 
