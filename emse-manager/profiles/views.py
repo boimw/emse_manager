@@ -25,8 +25,10 @@ def edit(request, user_id):
 	first_name = request.POST.get('first_name')
 	last_name = request.POST.get('last_name')
 	address = request.POST.get('address')
+	email = request.POST.get('email')
 	user.first_name = first_name
 	user.last_name = last_name
+	user.email = email
 	user.save()
 	return render(request, 'profile.html', context={
                 'info_message': "Successfully!"
