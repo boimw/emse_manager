@@ -19,6 +19,7 @@
               <div class="row">
                 <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://www.drupal.org/files/profile_default.png" class="img-circle img-responsive">
                </div>
+
                 <div class=" col-md-9 col-lg-9 "> 
                   <table class="table table-user-information">
                     <tbody>
@@ -40,25 +41,18 @@
                         <input class="form-control" id="email" type="text" name="email" value="{{ user.email }}">
                         </td>
                       </tr>
-                   
-                         <tr>
-                             <tr>
-                        <td>Gender</td>
-                        <td>
-					    <div class="radio">
-					      <label><input type="radio" name="optradio">Male</label>
-					    </div>
-					    <div class="radio">
-					      <label><input type="radio" name="optradio">Female</label>
-					    </div>
-					   </td>
-                      </tr>
-                        
+                      <tr>
+                        <td>Username</td>
+                        <td><a href="">{{ user.username }}</a></td>
+                      </tr> 
                       <tr>
                         <td>Email</td>
                         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-                      </tr>                        
-                      </tr>                 
+                      </tr>
+                      <tr>
+                        <td><a class="btn btn-default" href="{% url 'account_change_password' %}">Change password</a></td>
+                        <td></td>
+                      </tr>                  
                     </tbody>
                   </table>
                 </div>
