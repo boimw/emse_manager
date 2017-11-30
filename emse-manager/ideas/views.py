@@ -89,7 +89,7 @@ def add_comment(request, idea_id):
 		comment.save()
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                'info_message': "Comment added", 'idea': comment_idea, 'comments': comments
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -100,7 +100,7 @@ def delete_comment(request, idea_id, comment_id):
 	comment_idea=Idea.objects.get(id=idea_id)
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                'info_message': "Comment deleted", 'idea': comment_idea, 'comments': comments
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -113,7 +113,7 @@ def like_comment(request, idea_id, comment_id):
 	comment_idea=Idea.objects.get(id=idea_id)
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                'info_message': "Comment liked", 'idea': comment_idea, 'comments': comments
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -129,7 +129,7 @@ def edit_comment(request, idea_id, comment_id):
 
 	comments = Comment.objects.filter(idea=comment_idea)
 	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments
+                'info_message': "Comment changed", 'idea': comment_idea, 'comments': comments
                 })
 
 @login_required(login_url='/accounts/login/')
@@ -138,8 +138,7 @@ def comment_for_edit(request, idea_id, comment_id):
 	comment=Comment.objects.get(id=comment_id)
 	comment_idea=Idea.objects.get(id=idea_id)
 	comments = Comment.objects.filter(idea=comment_idea)
-	return render(request, 'idea.html', context={
-                'info_message': "Successfully!", 'idea': comment_idea, 'comments': comments, 'comment': comment
+	return render(request, 'idea.html', context={ 'idea': comment_idea, 'comments': comments, 'comment': comment
                 })
 
 comment_for_edit
