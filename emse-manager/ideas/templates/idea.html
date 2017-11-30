@@ -73,33 +73,33 @@
               <button type="submit" class="btn btn-danger">
                 <span class="glyphicon glyphicon-chevron-down"></span>
               </button>
-           </form>
-
-            
+           </form>         
         </div>
       </div>
     </div>
   </div>
 
 
-     <!-- <div class='col-sm-4'>
+  <div class='col-sm-4'>
     <div class="panel panel-primary">
       <div class="panel-heading">
         <h3 class="panel-title">Price</h3>
       </div>
       <div class="panel-body">
-        {{ idea.description }} &euro;
+        {{ idea.price }} &euro;
+        {% if  request.user != idea.owner  and idea.on_sale == True %}
           <div class='col-sm-4 pull-right'>
-    <form class="add_to_cart" id="add_to_cart_form" method="post" action="{% url 'add_to_cart' idea.id %}">
-          {% csrf_token %}
-          {{ form|crispy }}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          <button type="submit" class='btn btn-success pull-right'>Add to cart</button>
-        </form> 
+          <form class="add_to_cart" id="add_to_cart_form" method="post" action="{% url 'add_to_cart' idea.id %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            <button type="submit" class='btn btn-success pull-right'>Add to cart</button>
+          </form> 
         </div>
+        {% endif %}
       </div>
     </div>
-  </div>-->
+  </div>
 
 
 </div>

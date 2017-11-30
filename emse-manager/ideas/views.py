@@ -164,7 +164,9 @@ def create_idea(request):
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
 	idea_category = request.POST.get('category_select')
-	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.get(id=idea_category))
+	idea_on_sale = request.POST.get('on_sale')
+	idea_price = request.POST.get('price')
+	idea = Idea.objects.create(name = idea_name, description = idea_description, owner = user, catId = Category.objects.get(id=idea_category), on_sale = idea_on_sale, price = idea_price)
 	idea.save()
 	ideas_list = Idea.objects.all()
 	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
@@ -218,11 +220,15 @@ def update(request,idea_id):
 	idea_name = request.POST.get('idea_name')
 	idea_description = request.POST.get('idea_description')
 	idea_category = request.POST.get('category_select')
+	idea_on_sale = request.POST.get('on_sale')
+	idea_price = request.POST.get('price')
 	idea.name = idea_name
 	idea.description = idea_description
 	idea.catId = Category.objects.get(id=idea_category)
+	idea.on_sale = idea_on_sale
+	idea.price = idea_price
 	idea.save()
-	ideas = Idea.objects.all()
+	ideas_list = Idea.objects.all()
 
 	paginator = Paginator(ideas_list, 5) # Show 10 ideas per page
 
@@ -246,11 +252,10 @@ def update(request,idea_id):
 @login_required(login_url='/accounts/login/')
 def add_to_cart(request, idea_id):
 	idea = Idea.objects.get(id=idea_id)
-	quantity = request.POST.get('quantity')
 	cart = Cart(request)
-	cart.add(idea, idea.price, quantity)
+	cart.add(idea, idea.price)
 	return render(request, 'cart.html', context={
-                'info_message': "Successfully!", 'cart': cart
+                'info_message': "Idea added successfully!", 'cart': cart
 })
 
 @login_required(login_url='/accounts/login/')
