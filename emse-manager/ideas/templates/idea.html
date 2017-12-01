@@ -83,7 +83,7 @@
         {% endif %}
     </div>
   </div>
-
+  
   <div class='col-sm-4'>
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -91,6 +91,7 @@
       </div>
       <div class="panel-body">
         {{ idea.vote_score  }}
+        {% if request.user != idea.owner %}
           <div class='col-sm-4 pull-right'>
             <form  method="post" action="{% url 'idea_vote_up' idea.id %}">
               {% csrf_token %}
@@ -109,6 +110,7 @@
               </button>
            </form>         
         </div>
+      {% endif %}
       </div>
     </div>
   </div>
